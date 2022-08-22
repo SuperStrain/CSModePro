@@ -51,6 +51,24 @@ int main(int argc, char *argv[])
 	}
 
 	//进入监听状态，等待客户端连接
+	SOCKET clientSocket;
+	sockaddr_in client_sin;
+	bool flags = 0;//标志是否有客户端连接
+
+	while (1)
+	{
+		if (!flags)
+		{
+			cout << "\n服务器端已经启动，等等客户端连接......\n" << endl;
+		}
+		int len = sizeof(client_sin);
+		clientSocket = accept(serverSocket, (sockaddr*)&client_sin, &len);
+		if (clientSocket == INVALID_SOCKET)
+		{
+			flags = 0;
+			cout << "accept error.\n";
+		}
+	}
 	return 0;
 }
 
